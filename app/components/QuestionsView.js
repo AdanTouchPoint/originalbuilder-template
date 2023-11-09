@@ -22,34 +22,34 @@ const QuestionsView = ({
   backendURLBase,
   emailData,
   setLeads,
-  leads
+  leads,
 }) => {
-  const { name, lastName } = dataUser;
-const elements = (questions) => {
-return Object.keys(questions).map((clave) => (
-   questions[clave].split('<br/>').map((line,index)=>(
-    <React.Fragment key={index}>
-    {line}
-    <br />
-  </React.Fragment>
-   ))
-  ));
-}
-const back = (e) => {
-  e.preventDefault();
-  setShowQuestionsView(false);
-};
-const handleChange = (e) => {
-  setDataUser({
-    ...dataUser,
-    [e.target.name]: e.target.value,
-  });
-};
+  console.log(dataUser)
+  const elements = (questions) => {
+    return Object.keys(questions).map((clave) =>
+      questions[clave].split("<br/>").map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ))
+    );
+  };
+  const back = (e) => {
+    e.preventDefault();
+    setShowQuestionsView(false);
+  };
+  const handleChange = (e) => {
+    setDataUser({
+      ...dataUser,
+      [e.target.name]: e.target.value,
+    });
+  };
   const hoy = new Date();
   const today = hoy.toDateString();
   const click = async (e) => {
     e.preventDefault();
-    let message = JSON.stringify(questions)
+    let message = JSON.stringify(questions);
     setShowThankYou(false);
     setShowQuestions(true);
     setHidden(true);
@@ -61,29 +61,15 @@ const handleChange = (e) => {
       clientId,
       `questions=${message}&user=${JSON.stringify(dataUser)}`
     );
-        if (payload.success === true) {
-      fetchLeads(
-        true,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        message
-      );
+    if (payload.success === true) {
+      fetchLeads(true, backendURLBase, endpoints, clientId, dataUser, message);
       setShowThankYou(false);
     }
     if (payload.success !== true) {
-      fetchLeads(
-        false,
-        backendURLBase,
-        endpoints,
-        clientId,
-        dataUser,
-        message
-      );
+      fetchLeads(false, backendURLBase, endpoints, clientId, dataUser, message);
       return (
         <Alert>
-        The email has not been sent successfully, please try again again late
+          The email has not been sent successfully, please try again again late
           <Button
             className={"button-email-form"}
             variant={"dark"}
@@ -105,30 +91,37 @@ const handleChange = (e) => {
         <h2>{mainData.titlePreview}</h2>
         <p>{mainData.intructionsPreview}</p>
         <Form.Group className="field">
-                    <Form.Label className="select-label">subject</Form.Label>
-                    <Form.Control
-                      id={"subject"}
-                      type={"text"}
-                      placeholder={"subject"}
-                      name={"subject"}
-                      onChange={handleChange}
-                      required
-                    />
-                  </Form.Group>
+          <Form.Label className="select-label">subject</Form.Label>
+          <Form.Control
+            id={"subject"}
+            type={"text"}
+            placeholder={"subject"}
+            name={"subject"}
+            onChange={handleChange}
+            required
+          />
+        </Form.Group>
         <div style={{ textAlign: "left" }}>
           <Card body>
-            <div>
-            {
-            questions? elements(questions) : null
-           }
-            </div>
-            Sincerely,
-            <p>
-              {name} {lastName}
+            <p style={{fontSize: "13px"}}>
+              Committee Secretary
+              <br />
+              [Nombre del committee] <br />
+              Parliament House, <br />
+              PO Box 6100 <br />
+              Parliament House <br />
+              CANBERRA ACT 2006 <br />
+              AUSTRALIA <br />
+              {today} <br />
+              {dataUser.submissionType} Submission by {dataUser.userName}
             </p>
+            <div style={{fontSize: "13px"}}>
+              {questions ? elements(questions) : null}
+            <p>Best regards.</p>
+            </div>
           </Card>
         </div>
-        <p style={{padding: "15px"}}> {mainData.textPreview} </p>
+        <p style={{ padding: "15px" }}> {mainData.textPreview} </p>
         <Button onClick={click} className={"u-full-width"}>
           {mainData.sendButtonPreview}
         </Button>

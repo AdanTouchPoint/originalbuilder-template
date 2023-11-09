@@ -19,7 +19,8 @@ function Home() {
   const [dataUser, setDataUser] = useState({
 email:'',
 subject:'',
-userName:''
+userName:'',
+submissionType:''
   })
       const [backendURLBase] = useState(`${process.env.NEXT_PUBLIC_URL}`)
       const [backendURLBaseServices] = useState(`${process.env.NEXT_PUBLIC_URL_SERVICES}`)
@@ -31,7 +32,7 @@ userName:''
         toGetThankYouMessage:'/typ-message/',
         toGetTweets:'/tweets/',
         toSaveLeads:'/leads/',
-        toSendEmails:'/email-builder/',
+        toSendEmails:'/original-builder-email/',
         toGetAllLeads:'/leads/'
       })
     const [mp, setMp] = useState([])

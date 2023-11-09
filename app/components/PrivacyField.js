@@ -19,17 +19,15 @@ return (
         onChange={handleChange}
         required
       >
-        <option>
-          Public: the material is published on the internet whit your
-          name
+        <option value={""}></option>
+        <option value={"public"}>
+        Public: Your submission will be published online with your name
         </option>
-        <option>
-          Name-whith held: the material is published on the inter
-          without your name
+        <option value={"Name Withheld"}>
+        Name withheld:  Your submission will be published online without your name
         </option>
-        <option>
-          Confidential: the material is not published onn the internet
-          and kept confidential by the Committee
+        <option value={"confidential"}>
+        Confidential:  Your submission will not be published online.
         </option>
       </Form.Control>
       <Form.Control.Feedback type="invalid">
